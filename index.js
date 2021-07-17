@@ -41,7 +41,7 @@ app.get('/days/:code',(req, res, next) => {
       var data = JSON.parse(body.toString())
 
       // processing data
-      if(isCumulative=="false"){
+      if(!isCumulative || isCumulative=="false"){
         let confirmedCount = data[0].Confirmed
         let deathCount = data[0].Deaths
         let recoveredCount = data[0].Recovered
