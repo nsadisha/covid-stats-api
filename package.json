@@ -18,6 +18,7 @@
   "homepage": "https://github.com/nsadisha/covid-stats-api#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "ip-locator": "0.0.1"
+    "ip-locator": "0.0.1",
+    "request": "^2.88.2"
   }
 }
