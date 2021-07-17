@@ -10,10 +10,14 @@ app.get('/',(req, res, next) => {
     var countryCode = data.countryCode
 
     request('https://api.covid19api.com/total/country/'+countryCode, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var data = JSON.parse(body.toString())
-        res.json(data[data.length-1])
-      }else{
+      try {
+        if (!error && response.statusCode == 200) {
+          var data = JSON.parse(body.toString())
+          res.json(data[data.length-1])
+        }else{
+          res.json(error)
+        }
+      } catch (error) {
         res.json(error)
       }
     })
@@ -24,11 +28,15 @@ app.get('/',(req, res, next) => {
 app.get('/:code',(req, res, next) => {
   var countryCode = req.params.code
   request('https://api.covid19api.com/total/country/'+countryCode, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var data = JSON.parse(body.toString())
-      res.json(data[data.length-1])
-    }else{
-      res.json({"status": false, "code": response.statusCode, "message": "Not found"})
+    try {
+      if (!error && response.statusCode == 200) {
+        var data = JSON.parse(body.toString())
+        res.json(data[data.length-1])
+      }else{
+        res.json({"status": false, "code": response.statusCode, "message": "Not found"})
+      }
+    } catch (error) {
+      res.json(error)
     }
   })
 })
@@ -37,27 +45,31 @@ app.get('/days/:code',(req, res, next) => {
   var countryCode = req.params.code
   var isCumulative = req.query.cumulative
   request('https://api.covid19api.com/total/dayone/country/'+countryCode, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var data = JSON.parse(body.toString())
-
-      // processing data
-      if(!isCumulative || isCumulative=="false"){
-        let confirmedCount = data[0].Confirmed
-        let deathCount = data[0].Deaths
-        let recoveredCount = data[0].Recovered
-        for(let i=1; i<data.length; i++){
-          data[i].Confirmed -= confirmedCount
-          confirmedCount += data[i].Confirmed
-          data[i].Deaths -= deathCount
-          deathCount += data[i].Deaths
-          data[i].Recovered -= recoveredCount
-          recoveredCount += data[i].Recovered
+    try {
+      if (!error && response.statusCode == 200) {
+        var data = JSON.parse(body.toString())
+  
+        // processing data
+        if(!isCumulative || isCumulative=="false"){
+          let confirmedCount = data[0].Confirmed
+          let deathCount = data[0].Deaths
+          let recoveredCount = data[0].Recovered
+          for(let i=1; i<data.length; i++){
+            data[i].Confirmed -= confirmedCount
+            confirmedCount += data[i].Confirmed
+            data[i].Deaths -= deathCount
+            deathCount += data[i].Deaths
+            data[i].Recovered -= recoveredCount
+            recoveredCount += data[i].Recovered
+          }
         }
+  
+        res.json(data)
+      }else{
+        res.json({"status": false, "code": response.statusCode, "message": "Not found"})
       }
-
-      res.json(data)
-    }else{
-      res.json({"status": false, "code": response.statusCode, "message": "Not found"})
+    } catch (error) {
+      res.json(error)
     }
   })
 })
