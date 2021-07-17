@@ -28,7 +28,7 @@ app.get('/:code',(req, res, next) => {
       var data = JSON.parse(body.toString())
       res.json(data[data.length-1])
     }else{
-      res.json(error)
+      res.json({"status": false, "code": response.statusCode, "message": "Not found"})
     }
   })
 })
@@ -57,14 +57,14 @@ app.get('/days/:code',(req, res, next) => {
 
       res.json(data)
     }else{
-      res.json(error)
+      res.json({"status": false, "code": response.statusCode, "message": "Not found"})
     }
   })
 })
 
 // handling invalid routes
 app.get('*', (req, res)=>{
-  res.json({"status": 404, "message":"Not found"})
+  res.json({"status": 404, "message":"Route not found"})
 })
 
 // error handling middleware
