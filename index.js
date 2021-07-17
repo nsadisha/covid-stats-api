@@ -62,6 +62,18 @@ app.get('/days/:code',(req, res, next) => {
   })
 })
 
+// handling invalid routes
+app.get('*', (req, res)=>{
+  res.json({"status": 404, "message":"Not found"})
+})
+
+// error handling middleware
+app.use((e, req, res, next) => {
+  res.status(422).send({
+      status: false,
+      message: e.message
+  });
+})
 
 app.listen(process.env.PORT || 3000, ()=>{
   console.log("listening for requests")
