@@ -1,0 +1,22 @@
+{
+  "name": "covid-stats-api",
+  "version": "1.0.0",
+  "description": "An API to get current corona stats.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsadisha/covid-stats-api.git"
+  },
+  "author": "Sadisha Nimsara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nsadisha/covid-stats-api/issues"
+  },
+  "homepage": "https://github.com/nsadisha/covid-stats-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
