@@ -41,6 +41,22 @@ app.get('/country/:code',(req, res, next) => {
   })
 })
 
+//summary
+app.get('/summary', (req, res, next) => {
+  try {
+    request('https://api.covid19api.com/summary', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var data = JSON.parse(body.toString())
+        res.json(data)
+      }else{
+        res.json({"status": false, "code": response.statusCode, "message": "Not found"})
+      }
+    })
+  } catch (error) {
+    res.json(error)
+  }
+})
+
 // country list route
 app.get('/countries',(req, res, next) => {
   request('https://api.covid19api.com/countries', function (error, response, body) {
