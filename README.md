@@ -14,6 +14,8 @@ This is a simple api made with `ExpressJs` which provides you accurate corona st
 ```
 GET https://stats19.herokuapp.com
 ```
+This will **automatically** ditect your country from your ip address and provide current **COVID19** stats of your country.
+
 #### Responce
 ```json
 {
@@ -37,6 +39,8 @@ GET https://stats19.herokuapp.com
 ```
 GET https://stats19.herokuapp.com/country/in
 ```
+Provide 2 letter country code after `https://stats19.herokuapp.com/country/` and your will get current stats of that country.
+
 #### Responce
 ```json
 {
@@ -99,6 +103,8 @@ All available countries will be listed.
 ```
 GET https://stats19.herokuapp.com/days/us
 ```
+Provide country code just after `https://stats19.herokuapp.com/days/` and you will get daily stats of the country you provided.
+
 #### Responce #1
 ```json
 [
@@ -118,6 +124,8 @@ GET https://stats19.herokuapp.com/days/us
 ```
 GET https://stats19.herokuapp.com/days/us?cumulative=true
 ```
+Provide country code just after `https://stats19.herokuapp.com/days/` and you will get daily stats(cumulative) of the country you provided.
+
 #### Responce #2
 ```json
 [
